@@ -1,6 +1,6 @@
 package com.ilerna.pruebas;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Código inicial para la práctica de refactorización.
@@ -8,30 +8,39 @@ import java.util.ArrayList;
  * responsabilidades.
  */
 public class ProcesadorPedidos {
+    private static final double IVA = 0.21;
+    private static final double DESCUENTO_THRESHOLD = 100.0;
+    private static final double DESCUENTO_RATE = 0.10;
+    private static final double ENVIO_THRESHOLD = 500.0;
+    private static final double ENVIO_COST = 15.95;
 
-    public double procesar(ArrayList<String> a, ArrayList<Double> b) {
-        double t = 0;
+    public double procesar(List<String> listaNombres, List<Double> listaPrecios) {
+        double total = 0;
 
         // Sumar precios de la lista
-        for (int i = 0; i < b.size(); i++) {
-            System.out.println("Añadiendo producto: " + a.get(i));
-            t = t + b.get(i);
+        for (int i = 0; i < listaPrecios.size(); i++) {
+            System.out.println("Añadiendo producto: " + listaNombres.get(i));
+            total = total + listaPrecios.get(i);
         }
 
-        // Lógica de descuento (Magic Number 100 y 0.10)
-        if (t > 100) {
+        // Lógica de descuento
+        if (total > DESCUENTO_THRESHOLD) {
             System.out.println("Descuento aplicado.");
-            t = t - (t * 0.10);
+            total = total - (total * DESCUENTO_RATE);
         }
 
-        // Cálculo de impuestos (Magic Number 0.21)
-        double res = t + (t * 0.21);
+        // Cálculo de impuestos
+        double resultado = calcularIVA(total);
 
-        // Gastos de envío (Magic Number 500 y 15.95)
-        if (res < 500) {
-            res = res + 15.95;
+        // Gastos de envío
+        if (resultado < ENVIO_THRESHOLD) {
+            resultado = resultado + ENVIO_COST;
         }
 
-        return res;
+        return resultado;
+    }
+
+    private double calcularIVA(double total) {
+        return total + (total * IVA);
     }
 }
