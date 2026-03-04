@@ -1,0 +1,16 @@
+{
+  "sonarlint.rules": {
+    "java:S109": {
+      "level": "on",
+      "parameters": {
+        "exceptions": "-1,0,1"
+      }
+    },
+    "java:S3776": {
+      "level": "on",
+      "parameters": {
+        "threshold": "15"
+      }
+    }
+  }
+}
